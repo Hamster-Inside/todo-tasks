@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Integer>
+interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer>
 {
-    List<Task> findByisDone(@Param("state") boolean done);
+
 }
