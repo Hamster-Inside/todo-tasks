@@ -15,5 +15,6 @@ Optional<Task> findById (Integer id);
 boolean existsById(Integer id);
 List<Task> findByisDone(@Param("state") boolean done);
 Task save (Task entity);
+Task deleteById (int id);
 
 }
