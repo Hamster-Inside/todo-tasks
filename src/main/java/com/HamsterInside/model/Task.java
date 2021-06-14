@@ -1,7 +1,6 @@
 package com.HamsterInside.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tasks")
@@ -9,12 +8,8 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Task description must not be null")
     private String description;
     private boolean isDone;
-
-    public Task() {
-    }
 
     public int getId() {
         return id;
