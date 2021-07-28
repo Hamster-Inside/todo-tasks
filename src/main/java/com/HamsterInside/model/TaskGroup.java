@@ -5,39 +5,34 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "tasks")
-public class Task
+@Table(name = "task_groups")
+public class TaskGroup
 {
     @Id
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private int id;
-    @NotBlank(message = "Task description must not be empty")
+    @NotBlank(message = "Task group's description must not be empty")
     private String description;
     private boolean done;
-    private LocalDateTime deadline;
+
     @Embedded
     private Audit audit = new Audit();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+
+    private Set<Task> tasks;
+
     @ManyToOne()
-    @JoinColumn(name = "task_group_id")
-    private TaskGroup group;
-    Task(){
+    @JoinColumn(name = "project_id")
+    private Project project;
 
-    }
-    public Task(String description, LocalDateTime deadline){
-        this.description = description;
-        this.deadline = deadline;
-    }
-    public LocalDateTime getDeadline()
+   public TaskGroup()
     {
-        return deadline;
-    }
-
-    public void setDeadline(final LocalDateTime deadline)
-    {
-        this.deadline = deadline;
     }
 
     public int getId()
@@ -70,14 +65,23 @@ public class Task
         this.done = done;
     }
 
-    public void updateFrom(final Task source)
+    public Set<Task> getTasks()
     {
-        description = source.description;
-        done = source.done;
-        deadline = source.deadline;
-        group = source.group;
-
+        return tasks;
     }
 
+    public void setTasks(final Set<Task> tasks)
+    {
+        this.tasks = tasks;
+    }
 
+    Project getProject()
+    {
+        return project;
+    }
+
+    void setProject(final Project project)
+    {
+        this.project = project;
+    }
 }
