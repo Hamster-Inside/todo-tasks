@@ -7,18 +7,18 @@ import com.HamsterInside.model.TaskGroupRepository;
 import com.HamsterInside.model.TaskRepository;
 import com.HamsterInside.model.projection.GroupReadModel;
 import com.HamsterInside.model.projection.GroupWriteModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
+
+
+
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+
 public class TaskGroupService
 {
-    private TaskGroupRepository repository;
-    private TaskRepository taskRepository;
+    private final TaskGroupRepository repository;
+    private final TaskRepository taskRepository;
 
     TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository)
     {
@@ -51,5 +51,6 @@ public class TaskGroupService
         TaskGroup result = repository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
+        repository.save(result);
     }
 }
