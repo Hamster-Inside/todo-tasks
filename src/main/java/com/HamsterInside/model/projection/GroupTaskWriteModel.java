@@ -1,6 +1,7 @@
 package com.HamsterInside.model.projection;
 
 import com.HamsterInside.model.Task;
+import com.HamsterInside.model.TaskGroup;
 
 import java.time.LocalDateTime;
 
@@ -17,5 +18,5 @@ public class GroupTaskWriteModel
 
     public void setDeadline(final LocalDateTime deadline) {this.deadline = deadline;}
 
-    public Task toTask() {return new Task(description, deadline);}
+    public Task toTask(TaskGroup group) {return new Task(description, deadline, group);}
 }
